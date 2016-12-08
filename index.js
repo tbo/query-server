@@ -25,6 +25,8 @@ server.use(function(req, res, next) {
   next();
 });
 
+// Algolia compatibility
+
 server.get('/algolia/:collection/:id', (req, res, next) => {
   const params = extractParameters(['attributesToRetrieve'], req.query);
 
@@ -58,6 +60,8 @@ server.get('/algolia/:collection', (req, res, next) => {
     .project(extractProjection(params.attributesToRetrieve))
     .toArray((err, hits) => err ? next(err) : res.json({hits}));
 });
+
+// Query endpoint
 
 server.get('/:collection', (req, res, next) => {
   const params = extractParameters(['query', 'limit', 'skip', 'project', 'sort'], req.query);
